@@ -6,14 +6,15 @@ const SearchApp = {
             URL: 'https://api.github.com/search/users?q=',
             countUsers: 0,
             users: [],
-            filter: null
+            filter: 'возрастание'
         }
     },
     methods: {
-        getRequest() {
+        getRequest(filter) {
             if (this.inputValue) {
             	this.users = [];
-            	console.log(this.filter);
+                filter === null ? this.filter = 'возрастание' : this.filter = filter;
+
                 if (this.filter === 'возрастание') {
                     fetch(this.URL + this.inputValue + '&sort=repositories')
                         .then(response => response.json())

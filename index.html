@@ -25,18 +25,18 @@
                 <label for="increase" class="form__label">По возрастанию репозиториев:</label>
                 <input id="increase" type="radio" value="возрастание" 
                     v-model="filter"
-                    @click="getRequest"
+                    @click="getRequest('возрастание')"
                 >
             </div>
             <div class="form__input-group">
                 <label for="decrease" class="form__label">По убыванию репозиториев:</label>
                 <input id="decrease" type="radio" value="убывание"
                     v-model="filter"
-                    @click="getRequest"
+                    @click="getRequest('убывание')"
                 >
             </div>
             <button class="form__button"
-                @click.prevent="getRequest">Найти</button>
+                @click.prevent="getRequest(null)">Найти</button>
             <hr>
             <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
             <ul class="user-list">
