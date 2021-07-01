@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск пльзователей</title>
+    <link rel="stylesheet" href="libs/normalize.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <form id="search" action="#" class="form">
+            <h1 class="form__title">{{ title }}</h1>
+            <label for="formLogin" class="form__label form__label--margin">Введите логин пользователя:</label>
+            <input type="text" class="form__input" id="formLogin" placeholder="Login" 
+            v-model="inputValue"
+            >
+            <h2 class="form__subtitle">Сортировать</h2>
+            <div class="form__input-group">
+                <label for="increase" class="form__label">По возрастанию репозиториев:</label>
+                <input id="increase" type="radio" value="возрастание" 
+                    v-model="filter"
+                    @click="getRequest"
+                >
+            </div>
+            <div class="form__input-group">
+                <label for="decrease" class="form__label">По убыванию репозиториев:</label>
+                <input id="decrease" type="radio" value="убывание"
+                    v-model="filter"
+                    @click="getRequest"
+                >
+            </div>
+            <button class="form__button"
+                @click.prevent="getRequest">Найти</button>
+            <hr>
+            <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
+            <ul class="user-list">
+                <li class="user-list__item"
+                    v-for="user in users"
+                >{{ user.login }}</li>
+            </ul>
+            <button class="form__button" @click.prevent="showMore">Посмотреть далее</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
