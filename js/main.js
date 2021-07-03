@@ -22,6 +22,7 @@ const SearchApp = {
         getUsers() {
             this.users = [];
             this.currentPage = 1;
+            this.btnMoreFlag = false;
 
             if (this.inputValue) {
                 this.getRequest('&sort=repositories');
