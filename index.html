@@ -23,20 +23,20 @@
             <h2 class="form__subtitle">Сортировать</h2>
             <div class="form__input-group">
                 <label for="increase" class="form__label">По возрастанию репозиториев:</label>
-                <input id="increase" type="radio" value="возрастание" 
+                <input id="increase" type="radio" value="&sort=repositories" 
                     v-model="filter"
-                    @click="getRequest('возрастание')"
+                    @click="getSort('&sort=repositories')"
                 >
             </div>
             <div class="form__input-group">
                 <label for="decrease" class="form__label">По убыванию репозиториев:</label>
-                <input id="decrease" type="radio" value="убывание"
+                <input id="decrease" type="radio" value=""
                     v-model="filter"
-                    @click="getRequest('убывание')"
+                    @click="getSort('')"
                 >
             </div>
             <button class="form__button"
-                @click.prevent="getRequest(null)">Найти</button>
+                @click.prevent="getUsers">Найти</button>
             <hr>
             <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
             <ul class="user-list">
@@ -50,8 +50,9 @@
             </li>
             </ul>
             <button class="form__button" 
+                v-if="btnMoreFlag"
                 @click.prevent="showMore"
-                ">Посмотреть далее</button>
+                >Посмотреть далее</button>
         </form>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
