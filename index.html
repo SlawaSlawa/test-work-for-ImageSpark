@@ -41,8 +41,13 @@
             <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
             <ul class="user-list">
                 <li class="user-list__item"
-                    v-for="user in users"
-                >{{ user.login }}</li>
+                    v-for="(user, index) in users"
+                >{{ user.login }} 
+                <img class="user-list__img"
+                    :alt="'user: ' + user.login"
+                    :src="user.avatar_url"
+                >
+            </li>
             </ul>
             <button class="form__button" @click.prevent="showMore">Посмотреть далее</button>
         </form>
