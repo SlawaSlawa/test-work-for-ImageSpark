@@ -88,3 +88,8 @@ hr {
 	border-radius: 50%;
 	object-fit: cover;
 }
+
+.form__warning {
+	color: coral;
+}
+

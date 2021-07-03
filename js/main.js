@@ -9,7 +9,8 @@ const SearchApp = {
             filter: '&sort=repositories',
             USER_PER_PAGE: 10,
             btnMoreFlag: false,
-            currentPage: 1
+            currentPage: 1,
+            usersNotFound: false
         }
     },
     methods: {
@@ -42,6 +43,8 @@ const SearchApp = {
             console.log(data);
 
             if (data.total_count > 0) {
+                this.usersNotFound = false;
+
                 if (data.total_count > 10) {
                     this.btnMoreFlag = true;
                 }
@@ -52,7 +55,8 @@ const SearchApp = {
                     this.users.push(user);
                 });
             } else {
-                console.log(111);
+                console.log('usersNotFound');
+                this.usersNotFound = true;
             }
 
         },

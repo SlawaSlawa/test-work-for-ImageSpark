@@ -39,6 +39,11 @@
                 @click.prevent="getUsers">Найти</button>
             <hr>
             <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
+            <p class="form__warning"
+                v-if="usersNotFound"
+            >
+                По данному запросу ничего не найдено
+            </p>
             <ul class="user-list">
                 <li class="user-list__item"
                     v-for="(user, index) in users"
