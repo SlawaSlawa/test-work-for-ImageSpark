@@ -19,7 +19,8 @@
         >
             <div class="loader"></div>
         </div>
-        <form action="#" class="form">
+        <div class="app-wrapper" :class="toggleScroll">
+            <form action="#" class="form">
             <h1 class="form__title">{{ title }}</h1>
             <label for="formLogin" class="form__label form__label--margin">Введите логин пользователя:</label>
             <input type="text" class="form__input" id="formLogin" placeholder="Login" v-model="inputValue">
@@ -74,6 +75,8 @@
                 </ul>
             </div>
         </div>
+        </div>
+        
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="js/main.js"></script>

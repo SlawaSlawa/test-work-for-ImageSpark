@@ -12,7 +12,8 @@ const SearchApp = {
             currentPage: 1,
             usersNotFound: false,
             isModal: false,
-            isPreloder: false
+            isPreloder: false,
+            toggleScroll: 'scroll'
         }
     },
     methods: {
@@ -75,6 +76,11 @@ const SearchApp = {
                 evt.target.closest('.user-list__item')
                 ) {
                 this.isModal? this.isModal = false : this.isModal = true;
+                if (this.isModal === true) {
+                    this.toggleScroll = 'no-scroll';
+                }else {
+                    this.toggleScroll = 'scroll';
+                }
             }
         }
     }
