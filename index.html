@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Поиск пльзователей</title>
+    <title>Поиск пользователей</title>
     <link rel="stylesheet" href="libs/normalize.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,52 +13,67 @@
 </head>
 
 <body>
-    <div class="wrapper">
-        <form id="search" action="#" class="form">
+    <div class="wrapper" id="app">
+        <div class="loader-wrap"
+            v-if="isPreloder"
+        >
+            <div class="loader"></div>
+        </div>
+        <form action="#" class="form">
             <h1 class="form__title">{{ title }}</h1>
             <label for="formLogin" class="form__label form__label--margin">Введите логин пользователя:</label>
-            <input type="text" class="form__input" id="formLogin" placeholder="Login" 
-            v-model="inputValue"
-            >
+            <input type="text" class="form__input" id="formLogin" placeholder="Login" v-model="inputValue">
             <h2 class="form__subtitle">Сортировать</h2>
             <div class="form__input-group">
                 <label for="increase" class="form__label">По возрастанию репозиториев:</label>
-                <input id="increase" type="radio" value="&sort=repositories" 
-                    v-model="filter"
-                    @click="getSort('&sort=repositories')"
-                >
+                <input id="increase" type="radio" value="&sort=repositories" v-model="filter" @click="getSort('&sort=repositories')">
             </div>
             <div class="form__input-group">
                 <label for="decrease" class="form__label">По убыванию репозиториев:</label>
-                <input id="decrease" type="radio" value=""
-                    v-model="filter"
-                    @click="getSort('')"
-                >
+                <input id="decrease" type="radio" value="" v-model="filter" @click="getSort('')">
             </div>
-            <button class="form__button"
-                @click.prevent="getUsers">Найти</button>
+            <button class="form__button" @click.prevent="getUsers">Найти</button>
             <hr>
             <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
-            <p class="form__warning"
-                v-if="usersNotFound"
-            >
+            <p class="form__warning" v-if="usersNotFound">
                 По данному запросу ничего не найдено
             </p>
-            <ul class="user-list">
-                <li class="user-list__item"
+            <ul class="user-list"
+                @click.stop="toggleModal"
+            >
+                <li class="user-list__item" 
                     v-for="(user, index) in users"
-                >{{ user.login }} 
-                <img class="user-list__img"
-                    :alt="'user: ' + user.login"
-                    :src="user.avatar_url"
-                >
-            </li>
+                >{{ user.login }}
+                    <img class="user-list__img" :alt="'user: ' + user.login" :src="user.avatar_url">
+                </li>
             </ul>
-            <button class="form__button" 
-                v-if="btnMoreFlag"
-                @click.prevent="showMore"
-                >Посмотреть далее</button>
+            <button class="form__button" v-if="btnMoreFlag" @click.prevent="showMore">Посмотреть далее</button>
         </form>
+        <div class="details"
+            v-if="isModal"
+            @click.stop="toggleModal"
+        >
+            <div class="details__body">
+                <button class="close-btn"
+                    @click.stop="toggleModal"
+                >&#10006;</button>
+                <h2 class="details__title">
+                    Подробности
+                </h2>
+                <img src="https://avatars.githubusercontent.com/u/1437011?v=4" alt="" class="details__img">
+                <ul class="details__list">
+                    <li class="details__item">
+                        Перейти на профиль GitHub
+                    </li>
+                    <li class="details__item">
+                        Перейти на профиль GitHub
+                    </li>
+                    <li class="details__item">
+                        Перейти на профиль GitHub
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="js/main.js"></script>

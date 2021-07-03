@@ -10,11 +10,14 @@ const SearchApp = {
             USER_PER_PAGE: 10,
             btnMoreFlag: false,
             currentPage: 1,
-            usersNotFound: false
+            usersNotFound: false,
+            isModal: false,
+            isPreloder: false
         }
     },
     methods: {
         getRequest(sort) {
+            this.isPreloder = true;
             fetch(this.URL + this.inputValue + sort + '&per_page=' + this.USER_PER_PAGE + '&page=' + this.currentPage)
                 .then(response => response.json())
                 .then(users => this.requestHandler(users));
@@ -42,6 +45,7 @@ const SearchApp = {
         },
         requestHandler(data) {
             console.log(data);
+            this.isPreloder = false;
 
             if (data.total_count > 0) {
                 this.usersNotFound = false;
@@ -63,11 +67,18 @@ const SearchApp = {
         },
         showMore() {
             this.currentPage++;
-            console.log(this.currentPage);
             this.getRequest(this.filter);
+        },
+        toggleModal(evt) {
+            if (evt.target.classList.value === 'details' ||
+                evt.target.classList.value === 'close-btn' ||
+                evt.target.closest('.user-list__item')
+                ) {
+                this.isModal? this.isModal = false : this.isModal = true;
+            }
         }
     }
 }
 
-Vue.createApp(SearchApp).mount('#search');
+Vue.createApp(SearchApp).mount('#app');
 
