@@ -13,7 +13,12 @@ const SearchApp = {
             usersNotFound: false,
             isModal: false,
             isPreloder: false,
-            toggleScroll: 'scroll'
+            toggleScroll: 'scroll',
+            profileUrl: '',
+            detailsAvatar: '',
+            detailsLogin: '',
+            detailsFolowers: 0,
+            detailsRepos: 0
         }
     },
     methods: {
@@ -45,7 +50,6 @@ const SearchApp = {
 
         },
         requestHandler(data) {
-            console.log(data);
             this.isPreloder = false;
 
             if (data.total_count > 0) {
@@ -82,6 +86,24 @@ const SearchApp = {
                     this.toggleScroll = 'scroll';
                 }
             }
+        },
+        getDetails(login) {
+            fetch(this.URL + login)
+                .then(response => response.json())
+                .then(user => {
+                    this.profileUrl = user.items[0].html_url;
+                    this.detailsAvatar = user.items[0].avatar_url;
+                    this.detailsLogin = user.items[0].login;
+                    this.getDetailsInfo(user.items[0].followers_url, 'followers');
+                    this.getDetailsInfo(user.items[0].repos_url, 'repos');
+                });
+        },
+        getDetailsInfo(url, info) {
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                   info === 'followers' ? this.detailsFolowers = data.length : this.detailsRepos = data.length;
+                });
         }
     }
 }

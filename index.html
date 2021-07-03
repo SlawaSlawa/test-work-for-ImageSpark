@@ -44,6 +44,7 @@
             >
                 <li class="user-list__item" 
                     v-for="(user, index) in users"
+                    @click="getDetails(user.login)"
                 >{{ user.login }}
                     <img class="user-list__img" :alt="'user: ' + user.login" :src="user.avatar_url">
                 </li>
@@ -61,16 +62,17 @@
                 <h2 class="details__title">
                     Подробности
                 </h2>
-                <img src="https://avatars.githubusercontent.com/u/1437011?v=4" alt="" class="details__img">
+                <img :src="detailsAvatar" :alt="detailsLogin" class="details__img">
+                <h3 class="details__name">{{ detailsLogin }}</h3>
                 <ul class="details__list">
                     <li class="details__item">
-                        Перейти на профиль GitHub
+                        <a :href="profileUrl" class="details__link" target="_blank">Перейти на профиль GitHub</a>
                     </li>
                     <li class="details__item">
-                        Перейти на профиль GitHub
+                        Количество подписок: {{ detailsFolowers }}
                     </li>
                     <li class="details__item">
-                        Перейти на профиль GitHub
+                        Количество репозиториев: {{ detailsRepos }}
                     </li>
                 </ul>
             </div>
