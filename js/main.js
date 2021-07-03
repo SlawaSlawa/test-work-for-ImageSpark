@@ -16,11 +16,11 @@ const SearchApp = {
                 filter === null ? this.filter = 'возрастание' : this.filter = filter;
 
                 if (this.filter === 'возрастание') {
-                    fetch(this.URL + this.inputValue + '&sort=repositories')
+                    fetch(this.URL + this.inputValue + '&sort=repositories&per_page=10')
                         .then(response => response.json())
                         .then(users => this.requestHandler(users));
                 } else if (this.filter === 'убывание') {
-                    fetch(this.URL + this.inputValue)
+                    fetch(this.URL + this.inputValue + '&per_page=10')
                         .then(response => response.json())
                         .then(users => this.requestHandler(users));
                 }
