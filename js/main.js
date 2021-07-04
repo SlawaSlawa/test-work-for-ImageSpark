@@ -88,6 +88,8 @@ const SearchApp = {
             }
         },
         getDetails(login) {
+            this.isPreloder = true;
+
             fetch(this.URL + login)
                 .then(response => response.json())
                 .then(user => {
@@ -96,6 +98,7 @@ const SearchApp = {
                     this.detailsLogin = user.items[0].login;
                     this.getDetailsInfo(user.items[0].followers_url, 'followers');
                     this.getDetailsInfo(user.items[0].repos_url, 'repos');
+                    this.isPreloder = false;
                 });
         },
         getDetailsInfo(url, info) {

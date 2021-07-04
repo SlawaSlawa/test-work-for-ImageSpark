@@ -14,71 +14,60 @@
 
 <body>
     <div class="wrapper" id="app">
-        <div class="loader-wrap"
-            v-if="isPreloder"
-        >
+        <div class="loader-wrap" v-if="isPreloder">
             <div class="loader"></div>
         </div>
-        <div class="app-wrapper" :class="toggleScroll">
-            <form action="#" class="form">
-            <h1 class="form__title">{{ title }}</h1>
-            <label for="formLogin" class="form__label form__label--margin">Введите логин пользователя:</label>
-            <input type="text" class="form__input" id="formLogin" placeholder="Login" v-model="inputValue">
-            <h2 class="form__subtitle">Сортировать</h2>
-            <div class="form__input-group">
-                <label for="increase" class="form__label">По возрастанию репозиториев:</label>
-                <input id="increase" type="radio" value="&sort=repositories" v-model="filter" @click="getSort('&sort=repositories')">
-            </div>
-            <div class="form__input-group">
-                <label for="decrease" class="form__label">По убыванию репозиториев:</label>
-                <input id="decrease" type="radio" value="" v-model="filter" @click="getSort('')">
-            </div>
-            <button class="form__button" @click.prevent="getUsers">Найти</button>
-            <hr>
-            <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
-            <p class="form__warning" v-if="usersNotFound">
-                По данному запросу ничего не найдено
-            </p>
-            <ul class="user-list"
-                @click.stop="toggleModal"
-            >
-                <li class="user-list__item" 
-                    v-for="(user, index) in users"
-                    @click="getDetails(user.login)"
-                >{{ user.login }}
-                    <img class="user-list__img" :alt="'user: ' + user.login" :src="user.avatar_url">
-                </li>
-            </ul>
-            <button class="form__button" v-if="btnMoreFlag" @click.prevent="showMore">Посмотреть далее</button>
-        </form>
-        <div class="details"
-            v-if="isModal"
-            @click.stop="toggleModal"
+        <div class="app-wrapper" :class="toggleScroll"
+            v-cloak
         >
-            <div class="details__body">
-                <button class="close-btn"
-                    @click.stop="toggleModal"
-                >&#10006;</button>
-                <h2 class="details__title">
-                    Подробности
-                </h2>
-                <img :src="detailsAvatar" :alt="detailsLogin" class="details__img">
-                <h3 class="details__name">{{ detailsLogin }}</h3>
-                <ul class="details__list">
-                    <li class="details__item">
-                        <a :href="profileUrl" class="details__link" target="_blank">Перейти на профиль GitHub</a>
-                    </li>
-                    <li class="details__item">
-                        Количество подписок: {{ detailsFolowers }}
-                    </li>
-                    <li class="details__item">
-                        Количество репозиториев: {{ detailsRepos }}
+            <form action="#" class="form">
+                <h1 class="form__title">{{ title }}</h1>
+                <label for="formLogin" class="form__label form__label--margin">Введите логин пользователя:</label>
+                <input type="text" class="form__input" id="formLogin" placeholder="Login" v-model="inputValue">
+                <h2 class="form__subtitle">Сортировать</h2>
+                <div class="form__input-group">
+                    <label for="increase" class="form__label">По возрастанию репозиториев:</label>
+                    <input id="increase" type="radio" value="&sort=repositories" v-model="filter" @click="getSort('&sort=repositories')">
+                </div>
+                <div class="form__input-group">
+                    <label for="decrease" class="form__label">По убыванию репозиториев:</label>
+                    <input id="decrease" type="radio" value="" v-model="filter" @click="getSort('')">
+                </div>
+                <button class="form__button" @click.prevent="getUsers">Найти</button>
+                <hr>
+                <h2 class="form__subtitle">Результат поиска: ({{ countUsers }})</h2>
+                <p class="form__warning" v-if="usersNotFound">
+                    По данному запросу ничего не найдено
+                </p>
+                <ul class="user-list" @click.stop="toggleModal">
+                    <li class="user-list__item" v-for="(user, index) in users" @click="getDetails(user.login)">{{ user.login }}
+                        <img class="user-list__img" :alt="'user: ' + user.login" :src="user.avatar_url">
                     </li>
                 </ul>
+                <button class="form__button" v-if="btnMoreFlag" @click.prevent="showMore">Посмотреть далее</button>
+            </form>
+            <div class="details" v-if="isModal" @click.stop="toggleModal">
+                <div class="details__body">
+                    <button class="close-btn" @click.stop="toggleModal">&#10006;</button>
+                    <h2 class="details__title">
+                        Подробности
+                    </h2>
+                    <img :src="detailsAvatar" :alt="detailsLogin" class="details__img">
+                    <h3 class="details__name">{{ detailsLogin }}</h3>
+                    <ul class="details__list">
+                        <li class="details__item">
+                            <a :href="profileUrl" class="details__link" target="_blank">Перейти на профиль GitHub</a>
+                        </li>
+                        <li class="details__item">
+                            Количество подписок: {{ detailsFolowers }}
+                        </li>
+                        <li class="details__item">
+                            Количество репозиториев: {{ detailsRepos }}
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        </div>
-        
     </div>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="js/main.js"></script>
