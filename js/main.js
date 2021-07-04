@@ -1,10 +1,9 @@
 const SearchApp = {
     data() {
         return {
-            title: 'Поиск пользователей',
+            title: 'Поиск пользователей GitHub',
             inputValue: '',
-            URL: 'https://api.github.com/search/users?q=',
-            CLEAR_URL: 'https://api.github.com/',
+            URL: 'https://api.github.com/',
             countUsers: 0,
             users: [],
             filter: '&sort=repositories',
@@ -25,7 +24,7 @@ const SearchApp = {
     methods: {
         getRequest(sort) {
             this.isPreloder = true;
-            fetch(this.URL + this.inputValue + sort + '&per_page=' + this.USER_PER_PAGE + '&page=' + this.currentPage)
+            fetch(this.URL + 'search/users?q=' + this.inputValue + sort + '&per_page=' + this.USER_PER_PAGE + '&page=' + this.currentPage)
                 .then(response => response.json())
                 .then(users => this.requestHandler(users));
         },
@@ -91,7 +90,7 @@ const SearchApp = {
         getDetails(login) {
             this.isPreloder = true;
 
-            fetch(this.CLEAR_URL + 'users/' + login)
+            fetch(this.URL + 'users/' + login)
                 .then(response => response.json())
                 .then(user => {
                     this.detailsRepos = user.public_repos;
