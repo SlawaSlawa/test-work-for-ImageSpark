@@ -4,6 +4,7 @@ const SearchApp = {
             title: 'Поиск пользователей',
             inputValue: '',
             URL: 'https://api.github.com/search/users?q=',
+            CLEAR_URL: 'https://api.github.com/',
             countUsers: 0,
             users: [],
             filter: '&sort=repositories',
@@ -90,22 +91,15 @@ const SearchApp = {
         getDetails(login) {
             this.isPreloder = true;
 
-            fetch(this.URL + login)
+            fetch(this.CLEAR_URL + 'users/' + login)
                 .then(response => response.json())
                 .then(user => {
-                    this.profileUrl = user.items[0].html_url;
-                    this.detailsAvatar = user.items[0].avatar_url;
-                    this.detailsLogin = user.items[0].login;
-                    this.getDetailsInfo(user.items[0].followers_url, 'followers');
-                    this.getDetailsInfo(user.items[0].repos_url, 'repos');
+                    this.detailsRepos = user.public_repos;
+                    this.detailsFolowers = user.followers;
+                    this.detailsAvatar = user.avatar_url;
+                    this.profileUrl = user.html_url;
+
                     this.isPreloder = false;
-                });
-        },
-        getDetailsInfo(url, info) {
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                   info === 'followers' ? this.detailsFolowers = data.length : this.detailsRepos = data.length;
                 });
         }
     }
